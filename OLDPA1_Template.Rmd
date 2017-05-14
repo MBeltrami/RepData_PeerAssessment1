@@ -5,14 +5,13 @@ output:
     keep_md: true
 ---
 
-
-## Loading and preprocessing the data
+## Pre-code
 ```{r, echo = TRUE}
 #Libraries
 suppressMessages(library(dplyr))
 
 #Set WD
-setwd("/Users/avlaplicativos/Google Drive/Coursera/Data Science/Reproducible Research/Week2/RepData_PeerAssessment1")
+#setwd("/Users/avlaplicativos/Google Drive/Coursera/Data Science/Reproducible Research/Week2/RepData_PeerAssessment1")
 
 #Download Data
 #download.file(url = 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip', destfile = 'Data.zip', method = 'curl')
@@ -25,8 +24,9 @@ suppressMessages(data <- read.csv('activity.csv'))
 
 ```
 
+## Total Steps Study
 
-## What is mean total number of steps taken per day?
+Below you can see a histogram of the total steps taken in a day
 
 ```{r, echo = TRUE}
 
@@ -40,9 +40,9 @@ hist(StepsPerDay$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 MeanMedian <- data_frame(Mean = round(mean(StepsPerDay$total), digits = 2), Median = round(median(StepsPerDay$total), digits = 2))
 ```
 
-The mean total steps per day is `r as.character(round(MeanMedian$Mean, digits = 2))` and the median is `r as.character(round(MeanMedian$Median, digits = 2))`
+The mean steps per day is `r as.character(round(MeanMedian$Mean, digits = 2))` and the median is `r as.character(round(MeanMedian$Median, digits = 2))`
 
-## What is the average daily activity pattern?
+## Average Activity Pattern
 
 ```{r, echo = TRUE}
 
@@ -57,7 +57,6 @@ with(ActivityPattern, plot(interval, mean, main = 'Average Activity Pattern', xl
 From the plot above, we can see that the interval with most activity on average is the `r as.character(intervalMaxStep[1,1])` with `r as.character(round(intervalMaxStep[1,2], digits = 2))` steps on average.
 
 ## Imputing missing values
-
 
 ```{r, echo = TRUE}
 
@@ -80,8 +79,6 @@ hist(StepsPerDay2$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 MeanMedian2 <- data_frame(Mean = round(mean(StepsPerDay2$total), digits = 2), Median = round(median(StepsPerDay2$total), digits = 2))
 ```
 
-## Are there differences in activity patterns between weekdays and weekends?
-
 The mean steps per day is `r as.character(round(MeanMedian2$Mean, digits = 2))` and the median is `r as.character(round(MeanMedian2$Median, digits = 2))`.
 
 It seems we augmented the frequency of the central frequency bar in our histogram and diminished the mean from `r as.character(round(MeanMedian$Mean, digits = 2))` to `r as.character(round(MeanMedian2$Mean, digits = 2))` (`r 100*(1 - as.numeric(round(MeanMedian2$Mean, digits = 2))/as.numeric(round(MeanMedian$Mean, digits = 2)))`% of reduction) and the median from `r as.character(round(MeanMedian$Median, digits = 2))` to `r as.character(round(MeanMedian2$Median, digits = 2))` (`r 100*(1 - as.numeric(round(MeanMedian2$Median, digits = 2))/as.numeric(round(MeanMedian$Median, digits = 2)))`% of reduction).
@@ -98,3 +95,4 @@ par(mfrow = c(2,1), mar = c(4, 4, 1, 1))
 with(dataFilled %>% filter(typeOfDay == 'weekday'), plot(interval, mean, main = 'Weekday Activity Pattern', xlab = 'Interval', ylab = 'Avg. Number of Steps', type = 'l'))
 with(dataFilled %>% filter(typeOfDay == 'weekend'), plot(interval, mean, main = 'Weekend Activity Pattern', xlab = 'Interval', ylab = 'Avg. Number of Steps', type = 'l'))
 ```
+

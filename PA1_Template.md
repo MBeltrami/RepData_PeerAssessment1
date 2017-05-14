@@ -1,13 +1,14 @@
 # Reproducible Research: Peer Assessment 1
 
-## Pre-code
+
+## Loading and preprocessing the data
 
 ```r
 #Libraries
 suppressMessages(library(dplyr))
 
 #Set WD
-#setwd("/Users/avlaplicativos/Google Drive/Coursera/Data Science/Reproducible Research/Week2/RepData_PeerAssessment1")
+setwd("/Users/avlaplicativos/Google Drive/Coursera/Data Science/Reproducible Research/Week2/RepData_PeerAssessment1")
 
 #Download Data
 #download.file(url = 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip', destfile = 'Data.zip', method = 'curl')
@@ -19,9 +20,8 @@ suppressMessages(library(dplyr))
 suppressMessages(data <- read.csv('activity.csv'))
 ```
 
-## Total Steps Study
 
-Below you can see a histogram of the total steps taken in a day
+## What is mean total number of steps taken per day?
 
 
 ```r
@@ -33,15 +33,15 @@ StepsPerDay <- data %>% filter(!is.na(steps)) %>% group_by(date) %>% summarise(t
 hist(StepsPerDay$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 ```
 
-![](PA1_Template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
 MeanMedian <- data_frame(Mean = round(mean(StepsPerDay$total), digits = 2), Median = round(median(StepsPerDay$total), digits = 2))
 ```
 
-The mean steps per day is 10766.19 and the median is 10765
+The mean total steps per day is 10766.19 and the median is 10765
 
-## Average Activity Pattern
+## What is the average daily activity pattern?
 
 
 ```r
@@ -52,11 +52,12 @@ intervalMaxStep <- ActivityPattern[which(ActivityPattern$mean == max(ActivityPat
 with(ActivityPattern, plot(interval, mean, main = 'Average Activity Pattern', xlab = 'Interval', ylab = 'Average Number of Steps', type = 'l'))
 ```
 
-![](PA1_Template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 From the plot above, we can see that the interval with most activity on average is the 835 with 206.17 steps on average.
 
 ## Imputing missing values
+
 
 
 ```r
@@ -76,11 +77,13 @@ StepsPerDay2 <- dataFilled %>% filter(!is.na(steps)) %>% group_by(date) %>% summ
 hist(StepsPerDay2$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 ```
 
-![](PA1_Template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 MeanMedian2 <- data_frame(Mean = round(mean(StepsPerDay2$total), digits = 2), Median = round(median(StepsPerDay2$total), digits = 2))
 ```
+
+## Are there differences in activity patterns between weekdays and weekends?
 
 The mean steps per day is 10765.64 and the median is 10762.
 
@@ -99,5 +102,4 @@ with(dataFilled %>% filter(typeOfDay == 'weekday'), plot(interval, mean, main = 
 with(dataFilled %>% filter(typeOfDay == 'weekend'), plot(interval, mean, main = 'Weekend Activity Pattern', xlab = 'Interval', ylab = 'Avg. Number of Steps', type = 'l'))
 ```
 
-![](PA1_Template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
-
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
