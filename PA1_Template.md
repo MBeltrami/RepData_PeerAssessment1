@@ -33,7 +33,7 @@ StepsPerDay <- data %>% filter(!is.na(steps)) %>% group_by(date) %>% summarise(t
 hist(StepsPerDay$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_Template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
 MeanMedian <- data_frame(Mean = round(mean(StepsPerDay$total), digits = 2), Median = round(median(StepsPerDay$total), digits = 2))
@@ -52,7 +52,7 @@ intervalMaxStep <- ActivityPattern[which(ActivityPattern$mean == max(ActivityPat
 with(ActivityPattern, plot(interval, mean, main = 'Average Activity Pattern', xlab = 'Interval', ylab = 'Average Number of Steps', type = 'l'))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_Template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 From the plot above, we can see that the interval with most activity on average is the 835 with 206.17 steps on average.
 
@@ -77,7 +77,7 @@ StepsPerDay2 <- dataFilled %>% filter(!is.na(steps)) %>% group_by(date) %>% summ
 hist(StepsPerDay2$total, xlab = 'Total Steps', main = 'Total Steps per Day')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](PA1_Template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 MeanMedian2 <- data_frame(Mean = round(mean(StepsPerDay2$total), digits = 2), Median = round(median(StepsPerDay2$total), digits = 2))
@@ -102,4 +102,4 @@ with(dataFilled %>% filter(typeOfDay == 'weekday'), plot(interval, mean, main = 
 with(dataFilled %>% filter(typeOfDay == 'weekend'), plot(interval, mean, main = 'Weekend Activity Pattern', xlab = 'Interval', ylab = 'Avg. Number of Steps', type = 'l'))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](PA1_Template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
